@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 gap-x-15 max-w-screen-md">
         {Array.from(data.keys()).map(key => (
           <Card
             composedInfo={key}

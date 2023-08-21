@@ -5,7 +5,7 @@ const Card = (
 
   return (
     <section
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center box-border h-148 w-248 p-4 m-4 border-4"
       key={composedInfo}
     >
       <h1 className="font-bold text-lg">{nameAndProduct[0]}</h1>
