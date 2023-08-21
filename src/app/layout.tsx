@@ -1,4 +1,5 @@
 import './globals.css'
+import Navbar from './components/Navbar'
 import type { Metadata } from 'next'
 import { Space_Grotesk as sg } from 'next/font/google'
 
@@ -16,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={spaceGrotesk.className}>{children}</body>
+      <body className={`${spaceGrotesk.className} bg-white text-black`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }
