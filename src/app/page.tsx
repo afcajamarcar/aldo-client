@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import Card from "./components/card"
+import Card from "./components/Card"
 
 export default function Home() {
   const [data, setData] = useState<Map<string, string>>(new Map())
