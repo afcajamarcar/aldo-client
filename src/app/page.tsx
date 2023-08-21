@@ -16,14 +16,17 @@ export default function Home() {
 
   return (
     <main>
-      <div className="grid grid-cols-2 gap-2 gap-x-15 max-w-screen-md">
-        {Array.from(data.keys()).map(key => (
-          <Card
-            composedInfo={key}
-            inventory={data.get(key)}
-          />
-        ))}
-      </div>
+      <section className="max-w-screen-md">
+        <h1 className="text-4xl m-10 text-center">Current Status</h1>
+        <div className="grid grid-cols-2 gap-2 gap-x-15">
+          {Array.from(data.keys()).map(key => (
+            <Card
+              composedInfo={key}
+              inventory={data.get(key)}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   )
 }

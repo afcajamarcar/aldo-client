@@ -8,7 +8,7 @@ const Card = (
       className="flex flex-col justify-center items-center box-border h-148 w-248 p-4 m-4 border-4"
       key={composedInfo}
     >
-      <h1 className="font-bold text-lg">{nameAndProduct[0]}</h1>
+      <h1 className="font-bold text-lg max-w-xs truncate ...">{nameAndProduct[0]}</h1>
       <h2>{nameAndProduct[1]}</h2>
       <p>{inventory}</p>
     </section>
