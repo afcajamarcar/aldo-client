@@ -11,10 +11,11 @@ const { NO_STOCK, LOW_STOCK, HIGH_STOCK } = NOTIFICATIONS
 export default function Home() {
   const [storesInventory, setStoresInventory] = useState<Map<string, string>>(new Map())
   const [stockNotifications, setStockNotifications] = useState<Array<Notification>>([])
+
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:8080/')
 
-    ws.onmessage = (event: any) => {
+    ws.onmessage = (event: any): void => {
       const { store, model, inventory } = JSON.parse(event.data)
 
       if (Number(inventory) === 0) updateStockNotifications({ store, model, inventory, notification: NO_STOCK })
