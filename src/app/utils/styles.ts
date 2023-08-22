@@ -8,22 +8,22 @@ export const getCardStyles = (notification: string | undefined) => {
   ]
 
   const cardInfoContainerStyles = classNames(
-    "shadow-lg h-148 w-248 p-4 m-4 border",
+    "w-40 sm:w-auto shadow-lg h-148 p-4 m-4 border",
     { "grid grid-cols-2": notification }
   )
 
   const notificationTitleStyles = classNames(
-    "font-bold text-2xl text-center",
+    "font-bold text-lg sm:text-2xl text-center",
     ...notificationConditionalColors,
   )
 
   const cardInfoTitleStyles = classNames(
-    "font-bold text-lg max-w-xs truncate ...",
+    "w-full md:w-auto font-bold text-sm sm:text-lg max-w-xs truncate ...",
     ...notificationConditionalColors,
   )
 
   const cardInfoStoreNameStyles = classNames(
-    "text-lg",
+    "text-sm sm:text-lg",
     ...notificationConditionalColors,
   )
 

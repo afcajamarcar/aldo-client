@@ -49,14 +49,14 @@ export default function Home() {
     <main>
       <div className="grid grid-cols-2">
         <section>
-          <h1 className="text-4xl m-10 text-center">Current Inventory Status</h1>
+          <h1 className="text-2xl md:text-4xl m-10 text-center">Current Inventory Status</h1>
           <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-2 gap-x-15">
             {Array.from(storesInventory.keys()).map(composedInfo => renderStatusCard(composedInfo))}
           </div>
         </section>
         <section className="justify-self-center">
           <>
-            <h1 className="text-4xl m-10 text-center">Stock Notifications</h1>
+            <h1 className="text-2xl md:text-4xl m-10 text-center">Stock Notifications</h1>
             {stockNotifications &&
               stockNotifications.map(({ store, model, inventory, notification }) => (
                 <Card
