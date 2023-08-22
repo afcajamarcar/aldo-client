@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <main>
       <section className="max-w-screen-md">
-        <h1 className="text-4xl m-10 text-center">Current Status</h1>
+        <h1 className="text-4xl m-10 text-center">Current Inventory Status</h1>
         <div className="grid grid-cols-2 gap-2 gap-x-15">
           {Array.from(data.keys()).map(key => (
             <Card
