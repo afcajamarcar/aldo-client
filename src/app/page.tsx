@@ -15,12 +15,19 @@ export default function Home() {
 
     ws.onmessage = (event: any) => {
       const { store, model, inventory } = JSON.parse(event.data)
-      if (Number(inventory) === 0) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: NO_STOCK }]) //TODO move constant to file
-      if (Number(inventory) <= 10) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: LOW_STOCK }]) //TODO move constant to file
-      if (Number(inventory) >= 90) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: HIGH_STOCK }]) //TODO move constant to file
+      if (Number(inventory) === 0) updateStockNotifications(store, model, inventory, NO_STOCK)
+      if (Number(inventory) <= 10) updateStockNotifications(store, model, inventory, LOW_STOCK)
+      if (Number(inventory) >= 90) updateStockNotifications(store, model, inventory, HIGH_STOCK)
       setStoresInventory(prevState => new Map(prevState.set(`${store}/${model}`, inventory)))
     }
   }, [])
+
+  const updateStockNotifications = (store: string, model: string, inventory: string, notification: string): void => {
+    setStockNotifications(prevState => [
+      ...prevState,
+      { store, model, inventory, notification: notification }
+    ])
+  }
 
   const renderStatusCard = (composedInfo: string): JSX.Element => {
     const nameAndProduct = composedInfo.split('/')
