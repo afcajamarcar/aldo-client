@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react"
 import Card from "./components/Card"
+import { NOTIFICATIONS } from "./constants/notifications"
+
+const { NO_STOCK, LOW_STOCK, HIGH_STOCK } = NOTIFICATIONS
 
 export default function Home() {
   const [storesInventory, setStoresInventory] = useState<Map<string, string>>(new Map())
@@ -12,9 +15,9 @@ export default function Home() {
 
     ws.onmessage = (event: any) => {
       const { store, model, inventory } = JSON.parse(event.data)
-      if (Number(inventory) === 0) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: 'No Stock' }]) //TODO move constant to file
-      if (Number(inventory) <= 10) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: 'Low Stock' }]) //TODO move constant to file
-      if (Number(inventory) >= 90) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: 'High Stock' }]) //TODO move constant to file
+      if (Number(inventory) === 0) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: NO_STOCK }]) //TODO move constant to file
+      if (Number(inventory) <= 10) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: LOW_STOCK }]) //TODO move constant to file
+      if (Number(inventory) >= 90) setStockNotifications(prevState => [...prevState, { store, model, inventory, notification: HIGH_STOCK }]) //TODO move constant to file
       setStoresInventory(prevState => new Map(prevState.set(`${store}/${model}`, inventory)))
     }
   }, [])
