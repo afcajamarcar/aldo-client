@@ -1,14 +1,8 @@
 import classNames from 'classnames'
 
-const Card = (
-  { store, model, inventory, notification }:
-    {
-      store: string,
-      model: string,
-      inventory: string | undefined,
-      notification?: string,
-    }
-): JSX.Element => {
+import { Notification } from "../types/inventory"
+
+const Card = ({ store, model, inventory, notification }: Notification): JSX.Element => {
   const notificationConditionalColors = [
     { "text-orange-500": notification === 'Low Stock' },
     { "text-lime-600": notification === 'High Stock' },

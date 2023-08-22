@@ -2,30 +2,34 @@
 
 import { useState, useEffect } from "react"
 import Card from "./components/Card"
+
 import { NOTIFICATIONS } from "./constants/notifications"
+import { Notification } from "./types/inventory"
 
 const { NO_STOCK, LOW_STOCK, HIGH_STOCK } = NOTIFICATIONS
 
 export default function Home() {
   const [storesInventory, setStoresInventory] = useState<Map<string, string>>(new Map())
-  // TODO improve types
-  const [stockNotifications, setStockNotifications] = useState<Array<{ store: string, model: string, inventory: string, notification: string }>>([])
+  const [stockNotifications, setStockNotifications] = useState<Array<Notification>>([])
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:8080/')
 
     ws.onmessage = (event: any) => {
       const { store, model, inventory } = JSON.parse(event.data)
-      if (Number(inventory) === 0) updateStockNotifications(store, model, inventory, NO_STOCK)
-      if (Number(inventory) <= 10) updateStockNotifications(store, model, inventory, LOW_STOCK)
-      if (Number(inventory) >= 90) updateStockNotifications(store, model, inventory, HIGH_STOCK)
+
+      if (Number(inventory) === 0) updateStockNotifications({ store, model, inventory, notification: NO_STOCK })
+      if (Number(inventory) <= 10) updateStockNotifications({ store, model, inventory, notification: LOW_STOCK })
+      if (Number(inventory) >= 90) updateStockNotifications({ store, model, inventory, notification: HIGH_STOCK })
+
       setStoresInventory(prevState => new Map(prevState.set(`${store}/${model}`, inventory)))
     }
   }, [])
 
-  const updateStockNotifications = (store: string, model: string, inventory: string, notification: string): void => {
+  const updateStockNotifications = (notificationInfo: Notification): void => {
+    const { store, model, inventory, notification } = notificationInfo
     setStockNotifications(prevState => [
       ...prevState,
-      { store, model, inventory, notification: notification }
+      { store, model, inventory, notification }
     ])
   }
 
