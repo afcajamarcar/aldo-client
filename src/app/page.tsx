@@ -39,7 +39,7 @@ export default function Home() {
             {Array.from(storesInventory.keys()).map(composedInfo => renderStatusCard(composedInfo))}
           </div>
         </section>
-        <section>
+        <section className="justify-self-center">
           <>
             <h1 className="text-4xl m-10 text-center">Stock Notifications</h1>
             {stockNotifications &&
