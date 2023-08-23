@@ -1,5 +1,12 @@
 import { ENDPOINTS } from "@/app/constants/api"
 
+export async function GET ()  {
+  return await fetch(ENDPOINTS.REPORTS, {
+    method: 'GET',
+  })
+
+}
+
 export async function POST (req: Request) {
   const rawRes = await fetch(ENDPOINTS.REPORTS, {
     method: 'POST',
