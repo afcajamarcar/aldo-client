@@ -59,6 +59,9 @@ export default function Home() {
       const rawResponse = await fetch(NOTIFICATIONS_API, {
         method: 'GET',
       })
+
+      if (!rawResponse.ok) throw new Error(rawResponse.statusText);
+
       const blob = await rawResponse.blob()
       const blobToDownload = new Blob([blob], { type: blob.type });
       const a = document.createElement('a')
