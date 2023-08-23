@@ -1,13 +1,15 @@
 import { Notification } from "../types/inventory"
 import { getCardStyles } from '../utils/styles'
+import { formatDate } from '../utils/format'
 
-const Card = ({ store, model, inventory, notification }: Notification): JSX.Element => {
+const Card = ({ store, model, inventory, notification, createdAt }: Notification): JSX.Element => {
   const {
     cardInfoContainerStyles,
     notificationTitleStyles,
     cardInfoTitleStyles,
     cardInfoStoreNameStyles,
-    cardInfoInventoryStyles
+    cardInfoInventoryStyles,
+    notificationDateStyles,
   } = getCardStyles(notification)
 
   return (
@@ -17,8 +19,9 @@ const Card = ({ store, model, inventory, notification }: Notification): JSX.Elem
         key={`${store}/${model}`}
       >
         {notification && (
-          <section className="flex justify-center items-center">
+          <section className="flex flex-col justify-center items-center">
             <h1 className={notificationTitleStyles}>{notification}</h1>
+            <p className={notificationDateStyles}>{formatDate(createdAt)}</p>
           </section>
         )}
         <section className="flex flex-col justify-center items-center">

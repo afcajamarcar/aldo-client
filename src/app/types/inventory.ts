@@ -6,4 +6,5 @@ export type InventoryInfo = {
 
 export type Notification = InventoryInfo & {
   notification?: string;
+  createdAt?: string;
 }

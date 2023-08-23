@@ -26,11 +26,25 @@ export default function Home() {
     }
   }, [])
 
-  const updateStockNotifications = (notificationInfo: Notification): void => {
+  const updateStockNotifications = async (notificationInfo: Notification): Promise<void> => {
     const { store, model, inventory, notification } = notificationInfo
+    let createdAt = ''
+    try {
+      const rawResponse = await fetch('/api/notifications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({notification: {store, model, inventory, notification_status: notification}})
+      })
+      const res = await rawResponse.json()
+      createdAt = res.message
+    } catch (error) {
+      console.error(error)
+    }
     setStockNotifications(prevState => [
       ...prevState,
-      { store, model, inventory, notification }
+      { store, model, inventory, notification, createdAt }
     ])
   }
 
@@ -58,12 +72,13 @@ export default function Home() {
           <>
             <h1 className="text-2xl md:text-4xl m-10 text-center">Stock Notifications</h1>
             {stockNotifications &&
-              stockNotifications.map(({ store, model, inventory, notification }) => (
+              stockNotifications.map(({ store, model, inventory, notification, createdAt }) => (
                 <Card
                   store={store}
                   model={model}
                   inventory={inventory}
                   notification={notification}
+                  createdAt={createdAt}
                 />
               ))}
           </>

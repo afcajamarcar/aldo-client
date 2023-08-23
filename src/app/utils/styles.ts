@@ -17,6 +17,11 @@ export const getCardStyles = (notification: string | undefined) => {
     ...notificationConditionalColors,
   )
 
+  const notificationDateStyles = classNames(
+    "font-bold text-base sm:text-lg text-center",
+    ...notificationConditionalColors,
+  )
+
   const cardInfoTitleStyles = classNames(
     "w-full md:w-auto font-bold text-sm sm:text-lg max-w-xs truncate ...",
     ...notificationConditionalColors,
@@ -37,6 +42,7 @@ export const getCardStyles = (notification: string | undefined) => {
     notificationTitleStyles,
     cardInfoTitleStyles,
     cardInfoStoreNameStyles,
-    cardInfoInventoryStyles
+    cardInfoInventoryStyles,
+    notificationDateStyles,
   }
 }
