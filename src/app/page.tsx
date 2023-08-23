@@ -15,9 +15,11 @@ export default function Home() {
   const [storesInventory, setStoresInventory] = useState<Map<string, string>>(new Map())
   const [stockNotifications, setStockNotifications] = useState<Array<Notification>>([])
   const [downloadingReport, setDownloadingReport] = useState(false)
+  const [shouldReconnect, setShouldReconnect] = useState(false)
 
   useEffect(() => {
-    const ws = new WebSocket(INVENTORY_TAP_SOCKET)
+    let ws = new WebSocket(INVENTORY_TAP_SOCKET)
+    setShouldReconnect(false)
 
     ws.onmessage = (event: any): void => {
       const { store, model, inventory } = JSON.parse(event.data)
@@ -28,7 +30,11 @@ export default function Home() {
 
       setStoresInventory(prevState => new Map(prevState.set(`${store}/${model}`, inventory)))
     }
-  }, [])
+
+    ws.onclose = (event: any): void => {
+      setShouldReconnect(true)
+    }
+  }, [shouldReconnect])
 
   const updateStockNotifications = async (notificationInfo: Notification): Promise<void> => {
     const { store, model, inventory, notification } = notificationInfo
