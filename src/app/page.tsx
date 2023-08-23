@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react"
+import Image from 'next/image'
 import Card from "./components/Card"
 
 import { NOTIFICATIONS } from "./constants/notifications"
@@ -64,6 +65,17 @@ export default function Home() {
 
   return (
     <main>
+      <div className="fixed bottom-4 right-4">
+        <button className="bg-lime-600 hover:bg-lime-700 rounded-full w-20 h-20 flex items-center justify-center shadow-lg">
+          <Image
+            src="/spreadsheet_icon.svg"
+            alt="Download report"
+            width={50}
+            height={50}
+            priority
+          />
+        </button>
+      </div>
       <div className="grid grid-cols-2">
         <section>
           <h1 className="text-2xl md:text-4xl m-10 text-center">Current Inventory Status</h1>
