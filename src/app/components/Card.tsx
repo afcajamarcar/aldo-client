@@ -2,7 +2,13 @@ import { Notification } from "../types/inventory"
 import { getCardStyles } from '../utils/styles'
 import { formatDate } from '../utils/format'
 
-const Card = ({ store, model, inventory, notification, createdAt }: Notification): JSX.Element => {
+const Card = ({
+  store,
+  model,
+  inventory,
+  notification,
+  createdAt
+}: Notification): JSX.Element => {
   const {
     cardInfoContainerStyles,
     notificationTitleStyles,
