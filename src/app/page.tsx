@@ -4,16 +4,18 @@ import { useState, useEffect } from "react"
 import Card from "./components/Card"
 
 import { NOTIFICATIONS } from "./constants/notifications"
+import { ENDPOINTS } from "./constants/api"
 import { Notification } from "./types/inventory"
 
 const { NO_STOCK, LOW_STOCK, HIGH_STOCK } = NOTIFICATIONS
+const { INVENTORY_TAP_SOCKET, NOTIFICATIONS_API } = ENDPOINTS
 
 export default function Home() {
   const [storesInventory, setStoresInventory] = useState<Map<string, string>>(new Map())
   const [stockNotifications, setStockNotifications] = useState<Array<Notification>>([])
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8080/')
+    const ws = new WebSocket(INVENTORY_TAP_SOCKET)
 
     ws.onmessage = (event: any): void => {
       const { store, model, inventory } = JSON.parse(event.data)
@@ -30,16 +32,17 @@ export default function Home() {
     const { store, model, inventory, notification } = notificationInfo
     let createdAt = ''
     try {
-      const rawResponse = await fetch('/api/notifications', {
+      const rawResponse = await fetch(NOTIFICATIONS_API, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({notification: {store, model, inventory, notification_status: notification}})
+        body: JSON.stringify({ notification: { store, model, inventory, notification_status: notification } })
       })
       const res = await rawResponse.json()
       createdAt = res.message
     } catch (error) {
+      // TODO look for a better way to tell the user that notifications are not beign saved
       console.error(error)
     }
     setStockNotifications(prevState => [

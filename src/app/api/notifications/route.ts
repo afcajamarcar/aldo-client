@@ -1,5 +1,7 @@
+import { ENDPOINTS } from "@/app/constants/api"
+
 export async function POST (req: Request) {
-  const rawRes = await fetch('http://127.0.0.1:3000/notifications', {
+  const rawRes = await fetch(ENDPOINTS.REPORTS, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
